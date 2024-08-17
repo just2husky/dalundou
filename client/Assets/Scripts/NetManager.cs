@@ -86,10 +86,12 @@ public static class NetManager
         string[] split = msgStr.Split('|');
         string msgName = split[0];
         string msgArgs = split[1];
+        Debug.Log("Update process msgList exec  listen callback111: " + msgName + ", " + msgArgs);
         //¼àÌý»Øµ÷£»
         if (listeners.ContainsKey(msgName))
         {
             listeners[msgName](msgArgs);
+            Debug.Log("Update process msgList exec  listen callback" + msgStr);
         }
     }
 }
