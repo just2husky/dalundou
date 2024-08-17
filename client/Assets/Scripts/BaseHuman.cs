@@ -16,6 +16,9 @@ public class BaseHuman : MonoBehaviour
     //描述
     public string desc = "";
 
+    internal bool isAttacking = false;
+    internal float attackTime = float.MinValue;
+
     //移动到某处
     public void MoveTo(Vector3 pos)
     {
@@ -42,6 +45,24 @@ public class BaseHuman : MonoBehaviour
         }
     }
 
+    //攻击动作
+    public void Attack()
+    {
+        isAttacking = true;
+        attackTime = Time.time;
+        animator.SetBool("isAttacking", true);
+    }
+
+    //攻击Update
+    public void AttackUpdate()
+    {
+        if (!isAttacking) return;
+        if (Time.time - attackTime < 1.2f) return;
+        isAttacking = false;
+        animator.SetBool("isAttacking", false);
+    }
+
+
     // Use this for initialization
     protected void Start()
     {
@@ -52,5 +73,6 @@ public class BaseHuman : MonoBehaviour
     protected void Update()
     {
         MoveUpdate();
+        AttackUpdate();
     }
 }
